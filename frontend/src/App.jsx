@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Clientes from "./pages/Clientes";
+import Tecnicos from "./pages/Tecnicos";
 import RutaProtegida from "./components/RutaProtegida";
 
 function App() {
@@ -21,6 +22,14 @@ function App() {
         element={
           <RutaProtegida>
             <Clientes />
+          </RutaProtegida>
+        }
+      />
+      <Route
+        path="/tecnicos"
+        element={
+          <RutaProtegida>
+            <Tecnicos />
           </RutaProtegida>
         }
       />

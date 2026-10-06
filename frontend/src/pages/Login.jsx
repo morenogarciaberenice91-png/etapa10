@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import "../App.css";
 
@@ -16,29 +15,41 @@ function Login() {
     e.preventDefault();
     setMensaje("");
 
-    if (!username || !password) {
+    const u = username.trim();
+    const p = password.trim();
+
+    if (!u || !p) {
       setMensaje("Username y contraseña son obligatorios");
       setExito(false);
       return;
     }
 
     try {
-      const resultado = await login(username, password);
-      if (resultado.ok && resultado.datos.success) {
-        iniciarSesion({ username: resultado.datos.username });
+      // Petición directa al backend enviando el JSON correcto
+      const res = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: u, password: p }),
+      });
+
+      const datos = await res.json();
+
+      if (res.ok && datos.success) {
+        iniciarSesion(datos.usuario || { username: u });
         setExito(true);
-        setMensaje(resultado.datos.message);
+        setMensaje("Inicio de sesión exitoso");
         navigate("/dashboard");
       } else {
         setExito(false);
-        setMensaje(resultado.datos.message || "Usuario o contraseña incorrectos");
+        setMensaje(datos.message || "Usuario o contraseña incorrectos");
       }
-   
     } catch (error) {
-  console.error(error);
-  setExito(false);
-  setMensaje("No se pudo conectar con el servidor");
-}
+      console.error(error);
+      setExito(false);
+      setMensaje("No se pudo conectar con el servidor");
+    }
   };
 
   return (
@@ -53,6 +64,7 @@ function Login() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Ingrese su username"
+            autoComplete="off"
           />
           <label>Contraseña</label>
           <input
@@ -60,6 +72,7 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Ingrese su contraseña"
+            autoComplete="new-password"
           />
           <button type="submit">Ingresar</button>
         </form>
