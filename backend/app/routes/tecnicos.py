@@ -15,13 +15,39 @@ def obtener_tecnicos():
         cursor.execute("SELECT id, nombre, especialidad FROM tecnico")
         filas = cursor.fetchall()
         
-        # Convertir las filas a una lista de diccionarios
         tecnicos = []
         for fila in filas:
             tecnicos.append({
                 "id": fila[0],
                 "nombre": fila[1],
                 "especialidad": fila[2]
+            })
+            
+        return jsonify({"success": True, "tecnicos": tecnicos}), 200
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+    finally:
+        if cursor: 
+            cursor.close()
+        conexion.close()
+
+# GET - Catálogo de técnicos (para el select de servicios)
+@tecnicos_bp.route("/api/tecnicos/catalogo", methods=["GET"])
+def catalogo_tecnicos():
+    conexion = conectar()
+    if conexion is None:
+        return jsonify({"success": False, "message": "Sin conexión a BD"}), 500
+    cursor = None
+    try:
+        cursor = conexion.cursor()
+        cursor.execute("SELECT id, nombre FROM tecnico ORDER BY nombre")
+        filas = cursor.fetchall()
+        
+        tecnicos = []
+        for fila in filas:
+            tecnicos.append({
+                "id": fila[0],
+                "nombre": fila[1]
             })
             
         return jsonify({"success": True, "tecnicos": tecnicos}), 200

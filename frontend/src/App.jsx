@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Clientes from "./pages/Clientes";
 import Tecnicos from "./pages/Tecnicos";
+import Servicios from "./pages/Servicios"; // 1. Importar la página de Servicios
 import RutaProtegida from "./components/RutaProtegida";
 
 function App() {
@@ -30,6 +31,14 @@ function App() {
         element={
           <RutaProtegida>
             <Tecnicos />
+          </RutaProtegida>
+        }
+      />
+      <Route
+        path="/servicios"
+        element={
+          <RutaProtegida>
+            <Servicios />
           </RutaProtegida>
         }
       />

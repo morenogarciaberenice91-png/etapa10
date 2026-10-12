@@ -203,3 +203,46 @@ nav a {
   border-radius: 4px;
   background-color: transparent;
 }
+
+
+/* Alineación y orden para los elementos de la vista de servicios sin tocar jsx */
+input[type="text"], 
+input[type="date"], 
+select {
+  padding: 8px 12px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: transparent;
+  outline: none;
+  margin: 5px;
+}
+
+/* Ordenar en fila los campos de la parte superior */
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+/* Tabla centrada y ordenada */
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  width: 90%;
+  max-width: 900px;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+th {
+  font-weight: bold;
+  font-size: 1.1em;
+}

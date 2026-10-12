@@ -26,6 +26,28 @@ def obtener_clientes():
         if cursor: cursor.close()
         conexion.close()
 
+# GET: Catálogo de clientes (para el select de servicios)
+@clientes_bp.route("/api/clientes/catalogo", methods=["GET"])
+def catalogo_clientes():
+    conexion = conectar()
+    if conexion is None:
+        return jsonify({"success": False, "message": "Sin conexión a BD"}), 500
+    cursor = None
+    try:
+        cursor = conexion.cursor()
+        cursor.execute("SELECT id, nombre FROM cliente ORDER BY nombre")
+        filas = cursor.fetchall()
+        
+        columnas = [col[0] for col in cursor.description]
+        clientes = [dict(zip(columnas, fila)) for fila in filas]
+
+        return jsonify({"success": True, "clientes": clientes}), 200
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+    finally:
+        if cursor: cursor.close()
+        conexion.close()
+
 # POST: Crear cliente
 @clientes_bp.route("/api/clientes", methods=["POST"])
 def crear_cliente():
