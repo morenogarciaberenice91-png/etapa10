@@ -109,3 +109,107 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* ==========================================
+   CLASES DE UTILIDAD PARA LA ETAPA 9 
+   ========================================== */
+
+.contenedor {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+  text-align: left;
+}
+
+.tarjeta {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.tarjeta-mensaje {
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-align: left;
+}
+
+form div {
+  margin-bottom: 12px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--text-h);
+}
+
+form input, 
+form select, 
+form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--code-bg);
+  color: var(--text-h);
+  box-sizing: border-box;
+}
+
+.boton {
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.boton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.boton-eliminar {
+  background: #dc3545;
+  color: white;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.boton-cancelar {
+  background: #6c757d;
+  color: white;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.tabla th,
+.tabla td {
+  padding: 10px;
+  border: 1px solid var(--border);
+}
+
+.tabla th {
+  background: var(--code-bg);
+  color: var(--text-h);
+}
