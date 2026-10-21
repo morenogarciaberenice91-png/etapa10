@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app.config.conexion import conectar
+from werkzeug.security import check_password_hash
 
 login_bp = Blueprint("login", __name__)
 
@@ -25,12 +26,12 @@ def login():
             usuario = cursor.fetchone()
 
             if usuario:
-                # Extraer según si la consulta devuelve tupla o diccionario
                 db_id = usuario['id'] if isinstance(usuario, dict) else usuario[0]
                 db_user = usuario['username'] if isinstance(usuario, dict) else usuario[1]
-                db_pass = usuario['password'] if isinstance(usuario, dict) else usuario[2]
+                db_pass = str(usuario['password'] if isinstance(usuario, dict) else usuario[2]).strip()
 
-                if str(db_pass).strip() == password:
+                # Valida si la contraseña coincide directamente o mediante hash seguro
+                if db_pass == password or check_password_hash(db_pass, password):
                     return jsonify({
                         "success": True, 
                         "message": "Inicio de sesión exitoso",
